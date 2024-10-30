@@ -98,8 +98,25 @@ Scanner::nextToken()
                         state = 8;
                     else if(input[pos] == '*')
                         state = 9;
-                    else if(input[pos] == '/')
-                        state = 10;
+                    else if(input[pos] == '/'){
+
+                        // Verifica se é o comentário em bloco.  OBS: comentários são ignorados, não são tokens
+                        if(input[pos+1] == '*'){
+                            pos += 2;
+                            while(input[pos] != '*' && input[pos+1] != '/'){
+                                pos++;  
+                            }
+                            pos ++;
+                        // Verifica se é o comentário simples
+                        }else if(input[pos+1] == '/'){
+                            pos += 2;
+                            while(input[pos] != '\n'){
+                                pos++;
+                            }
+                        // Caso não seja um comentário
+                        }else
+                            state = 10;
+                    }
                     else if(input[pos] == '(')
                         state = 11;
                     else if(input[pos] == ')')
@@ -120,8 +137,8 @@ Scanner::nextToken()
                         state = 19;
                     else if(input[pos] == '|')
                         state = 20;
-                    else if(isprint(input[pos]))
-                        state = 39;
+                    //else if(isprint(input[pos]))
+                      //  state = 39;
                     else if(isspace(input[pos]))
                         state = 32;
                     else
@@ -131,7 +148,7 @@ Scanner::nextToken()
                 break;
 
             case 1:
-                if(isalnum(input[pos]) || isdigit(input[pos] || input[pos] == '_'))
+                if(isalnum(input[pos]) || isdigit(input[pos]) || input[pos] == '_')
                     state = 35;
                 else
                     state = 34;
@@ -200,17 +217,11 @@ Scanner::nextToken()
                 break;
 
             case 10:
-                if(input[pos] == '/'){
-                    while(input[pos] != '\n')
-                        pos++;
-                    tok = new Token(COMMENT);
-                }else if(input[pos] == '*'){
-                   state = 37;
-                }else{
-                    tok = new Token(RELOP, DIV);
-                }
-                return tok;
+                
+                tok = new Token(RELOP, DIV);
+                
                 break;
+                
 
             case 11:
                 tok = new Token(SEPARATOR, LP);
@@ -343,10 +354,11 @@ Scanner::nextToken()
                 return tok;
 
             case 35:
-                if(!isalnum(input[pos]) || input[pos] == '_' || isdigit(input[pos]))
-                    state = 36;
-
+                while(isalnum(input[pos]) || (isdigit(input[pos]) || input[pos] == '_')){
+                    pos++;
+                }
                 pos++;
+                state = 36;
                 break;
 
             case 36:
