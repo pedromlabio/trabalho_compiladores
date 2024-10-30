@@ -1,7 +1,7 @@
 /* TUTORIAL!!!!!!!
 
 para compilar e executar siga esses passos no VSCODE
-1- g++ principal.cpp scanner.cpp -0 teste
+1- g++ principal.cpp scanner.cpp -o teste
 2- ./teste saida.mj    ** Vale ressaltar que nesta parte só se aceita arquivos do tipo .mj, independente do nome
 
 

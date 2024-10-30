@@ -51,9 +51,10 @@ Scanner::nextToken()
     //cout << input[8] << endl;
 
     int state = 0;
-    bool tipo;
 
     while(true){
+        if(input[pos] == '\n')
+            line++;
         switch(state){
             case 0:
                 // O input[pos] começa com o nome do arquivo, esse if serve para separar o nome do conteúdo
@@ -137,8 +138,14 @@ Scanner::nextToken()
                         state = 19;
                     else if(input[pos] == '|')
                         state = 20;
-                    //else if(isprint(input[pos]))
-                      //  state = 39;
+                    // charconstant
+                    else if(input[pos] == '\''){
+                        state = 37;
+                    }
+                    // stringconstant
+                    else if(input[pos] == '"'){
+                        state = 38;
+                    }
                     else if(isspace(input[pos]))
                         state = 32;
                     else
@@ -368,30 +375,41 @@ Scanner::nextToken()
 
                 return tok;
 
-            case 38:
-                tipo = true;
-                while(tipo){
-                    if(input[pos] == '*' && input[pos+1] == '/'){
-                        tok = new Token(COMMENT);
-                        pos++;
-                        tipo = false;
-                        return tok;
+            case 37:
+                // Temporiariamente estão definidos como tokens UNDEF
+                if(isprint(input[pos]) && input[pos+1] == '\''){
+                    if(input[pos] == '\\'){
+                        tok = new Token(UNDEF);
                     }else{
-                        pos += 2;
+                        tok = new Token(CHAR_CONSTANT);
                     }
+                    pos += 2;
+                    return tok;
+                }else{
+                    lexeme = "Muitos argumentos para um tipo char OU Formato char incompleto.";
+                    lexicalError(lexeme);
                 }
                 break;
 
-            case 39:
-                if(input[pos] == '\'' || input[pos] == '\\'){
-                    tok = new Token(UNDEF);
-                }else{
-                    tok = new Token(CHAR_CONSTANT);
+             case 38:
+                
+                if(isprint(input[pos])){
+                    while(input[pos] != '"'){
+                        if(input[pos] == '\\' && input[pos+1] == 'n'){
+                            //tok = new Token(UNDEF);
+                            pos++;
+                        }else if(input[pos] == '\0'){
+                            lexeme = "Formato String incompleto.";
+                            lexicalError(lexeme);
+                        }
+                        pos++;
+                    }
+                    tok = new Token(STRING_CONSTANT);
                 }
                 pos++;
                 return tok;
                 break;
-
+    
             default:
                 lexicalError(lexeme);
         }
