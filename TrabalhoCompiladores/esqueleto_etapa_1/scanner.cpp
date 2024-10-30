@@ -173,7 +173,20 @@ Scanner::nextToken()
                 break;
 
             case 10:
-                tok = new Token(RELOP, DIV);
+            //TODO: ADD COMMENTARY
+                if (input[pos] == '/')
+                {
+                    //single line commentary
+                    state = 37;
+                    pos++;
+                }else if (input[pos] == '*')
+                {
+                    //multiline commentary
+                    state = 38;
+                    pos++;
+                }else{
+                    tok = new Token(RELOP, DIV);
+                }
 
                 break;
 
@@ -320,7 +333,47 @@ Scanner::nextToken()
                 pos--;
 
                 return tok;
+            case 37:
+                if (input[pos] == '\\') //NÃO ESTÁ ERRADO, TEM QUE SER ASSIM
+                {
+                    //linha possivelmente terminando
+                    state = 39;
+                }
+                pos++;
+                break;
 
+            case 38:
+                if (input[pos] == '*')
+                {
+                    //comentario possivelmente terminando
+                    state = 40;
+                }
+                pos++;
+                break;
+            case 39:
+                if (input[pos] == 'n')
+                {
+                    //endline
+                    state = 0;
+                    pos++;
+                }else{
+                    state = 37;
+                    pos++;
+                }
+                break;
+            case 40:
+                if (input[pos] == '/')
+                {
+                    //end comment
+                    state = 0;
+                    pos++;
+                }else{
+                    state = 38;
+                    pos++;
+                }
+                break;
+                
+                
             default:
                 lexicalError(lexeme);
         }
