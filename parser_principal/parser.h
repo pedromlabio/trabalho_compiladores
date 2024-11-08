@@ -13,8 +13,16 @@ class Parser
 		Parser(string);
 		void run();
         void program();
-        void declaration();
         void function();
-        //Continuar....
+		void varDeclaration();
+		void type();
+		void paramTypes();
+		void statement();
+		void assign();
+		void expression();
+		void term();
+		void binOp();
+		void relOp();
+		void logOp();
         void error(string);
 };
