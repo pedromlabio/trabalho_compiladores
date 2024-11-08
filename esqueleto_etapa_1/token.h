@@ -41,7 +41,9 @@ enum name
     NUMBER,//32
     CORRECTFILE,//33
     WRONGFILE,//34
-    END_OF_FILE//35
+    END_OF_FILE,//35
+    BINOP,//36
+    LOGOP//37
 };
 
 class Token 

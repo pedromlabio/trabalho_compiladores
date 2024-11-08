@@ -209,23 +209,23 @@ Scanner::nextToken()
                 break;
 
             case 7:
-                tok = new Token(RELOP, ADD);
+                tok = new Token(BINOP, ADD);
 
                 break;
 
             case 8:
-                tok = new Token(RELOP, SUB);
+                tok = new Token(BINOP, SUB);
 
                 break;
 
             case 9:
-                tok = new Token(RELOP, MULT);
+                tok = new Token(BINOP, MULT);
 
                 break;
 
             case 10:
                 
-                tok = new Token(RELOP, DIV);
+                tok = new Token(BINOP, DIV);
                 
                 break;
                 
