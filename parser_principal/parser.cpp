@@ -31,7 +31,7 @@ Parser::run()
 }
 
 void
-Parser::program()
+Parser::program() //regra 1
 {
     while (lToken->name != END_OF_FILE)
         function();
@@ -39,18 +39,93 @@ Parser::program()
     match(END_OF_FILE);
 }
 
-void
+void //regras 2 e 3, tanto type como void são considerados IDS no momento ent meio q n faz diferença
 Parser::function()
 {
     type();
     match(ID);
-    match(LPARENTHESE);
+    match(LP);
     paramTypes();
-    match(RPARENTHESE);
-    match(LBRACE);
-    //TODO
+    match(RP);
+    match(LB);
+    while (lToken->name != ID||
+	lToken->name != SEMICOLON ||
+	lToken->name != LB ||)
+	{
+		type();
+		varDeclaration();
+		while (lToken->name != SEMICOLON)
+		{
+			match(COMMA);
+			varDeclaration();
+		}
+		match(SEMICOLON);
+	}
+	while (lToken->name != RB)
+	{
+		statement();
+	}
+	match(SEMICOLON);
+	
 }
 
+Parser::varDeclaration() // regra 4
+{
+	match(ID);
+	if (lToken->name == RB)
+	{
+		match(LB);
+		match(INTEGER_LITERAL);
+		match(RB);
+	}
+	
+}
+
+Parser::type() // regras 5 e 6
+{
+	match(ID);
+}
+
+Parser::paramTypes() // regras 7 e 8
+{
+	if (lToken->name == ID)
+	{
+		type();
+		match(ID);
+		if (lToken->name == RB)
+		{
+			match(LB);
+			match(RB);
+		}
+		while (lToken->name != RP)
+		{
+			match(COMMA);
+			type();
+			match(ID);
+			if (lToken->name == RB)
+			{
+				match(LB);
+				match(RB);
+			}
+			
+		}
+		
+		
+	}else{
+		match(ID);
+	}
+	
+}
+
+Parser::statement() //regras 9-15
+{
+	//acho q é meio q uma gambiarra q to fazendo
+	if (/* condition */)
+	{
+		/* code */
+	}
+	
+}
 //TODO
 
 void
