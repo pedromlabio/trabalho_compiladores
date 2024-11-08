@@ -19,6 +19,7 @@ class Parser
 		void paramTypes();
 		void statement();
 		void assign();
+		void assignL();
 		void expression();
 		void term();
 		void binOp();
