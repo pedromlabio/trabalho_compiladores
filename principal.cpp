@@ -7,7 +7,8 @@ para compilar e executar siga esses passos no VSCODE
 
 
 */
-#include "scanner.h"
+#include "parser.h"
+//#include "scanner.h"
 #include <iostream>
 
 using namespace std;
@@ -22,7 +23,7 @@ int main(int argc, char* argv[])
         cout << "Uso: ./compiler nome_arquivo.mj\n";
         return 1;
     }
-
+/*
     string input;
     
     //getline(cin, input);
@@ -42,5 +43,9 @@ int main(int argc, char* argv[])
 
     delete scanner;
 
+*/
+    Parser* parser = new Parser(argv[1]);
+
+    parser->run();
     return 0;
 }

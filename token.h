@@ -22,21 +22,21 @@ enum name
     EQ,//13
     NE,//14
     LE,//15
-    LT,//16
+    LT,//16 
     GE,//17
     GT,//18
     AND,//19
     OR,//20
     NOT,//21
     SEPARATOR,//22
-    LP,//23
-    RP,//24
-    LC,//25
-    RC,//26
-    LB,//27
-    RB,//28
+    LP,//23 (
+    RP,//24 )
+    LC,//25 {
+    RC,//26 }
+    LB,//27 [
+    RB,//28 ]
     COMMA,//29
-    SEMICOLON,//30
+    SEMICOLON,//30 ;
     COMMENT,//31
     NUMBER,//32
     CORRECTFILE,//33

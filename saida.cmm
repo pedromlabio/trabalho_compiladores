@@ -1,0 +1,20 @@
+/* Erros encontrados:
+    "return" no meio da função.
+    somas ficam presas em algum while.
+
+*/
+/*void main(void){    
+    char r = 'p';
+    int n;
+    char pol;
+    int ploe = 10;
+}
+*/
+int por(void){    
+    char r = 'p';
+    int n;
+    //return 0;
+    char pol;
+    int ploe = 10;
+    return 0; 
+}

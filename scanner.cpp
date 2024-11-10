@@ -5,10 +5,9 @@
 Scanner::Scanner(string input)
 {
     this->input = input;
-    cout << "Entrada: " << input << endl << "Tamanho: " 
+    /*cout << "Entrada: " << input << endl << "Tamanho: " 
          << input.length() << endl;
-
-    pos = 0;
+    */pos = 0;
     line = 1;
 
     ifstream inputFile(input, ios::in);
@@ -51,11 +50,17 @@ Scanner::nextToken()
     //cout << input[8] << endl;
 
     int state = 0;
+    //int barra = 0;
+    //int teste = 1;
 
     while(true){
-        if(input[pos] == '\n')
+
+        if(input[pos] == '\n'){
             line++;
+        }
+        //cout << pos << endl;
         switch(state){
+            
             case 0:
                 // O input[pos] começa com o nome do arquivo, esse if serve para separar o nome do conteúdo
                 if(pos == 0){
@@ -64,13 +69,12 @@ Scanner::nextToken()
                         pos++;
                     }
                     // Especifica o tipo de arquivo que deva receber
-                    if(input[pos] == '.' && input[pos+1] == 'm' && input[pos+2] == 'j')
+                    if(input[pos] == '.' && input[pos+1] == 'c' && input[pos+2] == 'm' && input[pos+3] == 'm')
                     {
                         tok = new Token(CORRECTFILE);
-                        pos += 3 ;
+                        pos += 4 ;
                         return tok;
                     }else{
-                        cout << "INCORRECT FILE TYPE" << endl;
                         tok = new Token(WRONGFILE);
                         return tok;
                     }
@@ -81,11 +85,13 @@ Scanner::nextToken()
                         tok = new Token(END_OF_FILE);
                         return tok;
                     }
-                    else if(isalpha(input[pos]))
+                    else if(isalpha(input[pos])){
                         state = 1;
-                    else if(isdigit(input[pos]))
+                        lexeme = input[pos]; 
+                    }else if(isdigit(input[pos])){
                         state = 2;
-                    else if(input[pos] == '>')
+                        lexeme = input[pos];
+                    }else if(input[pos] == '>')
                         state = 3;
                     else if(input[pos] == '<')
                         state = 4;
@@ -105,9 +111,12 @@ Scanner::nextToken()
                         if(input[pos+1] == '*'){
                             pos += 2;
                             while(input[pos] != '*' && input[pos+1] != '/'){
+                                if(input[pos] == '\n'){
+                                    line++;
+                                }
                                 pos++;  
                             }
-                            pos ++;
+                            pos++;
                         // Verifica se é o comentário simples
                         }else if(input[pos+1] == '/'){
                             pos += 2;
@@ -119,7 +128,9 @@ Scanner::nextToken()
                             state = 10;
                     }
                     else if(input[pos] == '(')
-                        state = 11;
+                    {
+                       state = 11;
+                    }
                     else if(input[pos] == ')')
                         state = 12;
                     else if(input[pos] == '[')
@@ -155,9 +166,10 @@ Scanner::nextToken()
                 break;
 
             case 1:
-                if(isalnum(input[pos]) || isdigit(input[pos]) || input[pos] == '_')
+                if(isalnum(input[pos]) || isdigit(input[pos]) || input[pos] == '_'){
                     state = 35;
-                else
+                    lexeme = lexeme + input[pos];
+                }else
                     state = 34;
 
                 pos++;
@@ -165,10 +177,13 @@ Scanner::nextToken()
 
             case 2:
                 if(isdigit(input[pos]))
+                {                
                     state = 21;
+                    lexeme = lexeme + input[pos];
+                }
                 else
                     state = 22;
-               
+                
                 pos++;
                 break;
 
@@ -209,55 +224,56 @@ Scanner::nextToken()
                 break;
 
             case 7:
-                tok = new Token(BINOP, ADD);
+                tok = new Token(RELOP, ADD);
 
                 break;
 
             case 8:
-                tok = new Token(BINOP, SUB);
+                tok = new Token(RELOP, SUB);
 
                 break;
 
             case 9:
-                tok = new Token(BINOP, MULT);
+                tok = new Token(RELOP, MULT);
 
                 break;
 
             case 10:
                 
-                tok = new Token(BINOP, DIV);
+                tok = new Token(RELOP, DIV);
                 
                 break;
                 
 
             case 11:
+                
                 tok = new Token(SEPARATOR, LP);
-
+                return tok;
                 break;
 
             case 12:
                 tok = new Token(SEPARATOR, RP);
-
+                return tok;
                 break;
 
             case 13:
                 tok = new Token(SEPARATOR, LB);
-
+                return tok;
                 break;
 
             case 14:
                 tok = new Token(SEPARATOR, RB);
-
+                return tok;
                 break;
 
             case 15:
                 tok = new Token(SEPARATOR, LC);
-
+                return tok;
                 break;
 
             case 16:
                 tok = new Token(SEPARATOR, RC);
-
+                return tok;
                 break;
 
             case 17:
@@ -354,7 +370,7 @@ Scanner::nextToken()
                 break;
 
             case 34:
-                tok = new Token(LETTER);
+                tok = new Token(ID, lexeme);
 
                 pos--;
 
@@ -362,14 +378,16 @@ Scanner::nextToken()
 
             case 35:
                 while(isalnum(input[pos]) || (isdigit(input[pos]) || input[pos] == '_')){
+                    lexeme = lexeme + input[pos];
                     pos++;
+                    
                 }
                 pos++;
                 state = 36;
                 break;
 
             case 36:
-                tok = new Token(ID);
+                tok = new Token(ID, lexeme);
 
                 pos--;
 
