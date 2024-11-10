@@ -1,8 +1,6 @@
 /* Erros encontrados:
     "return" no meio da função.
-    somas ficam presas em algum while.
-
-*/
+    somas ficam presas em algum while.*/
 /*void main(void){    
     char r = 'p';
     int n;
@@ -15,6 +13,6 @@ int por(void){
     int n;
     //return 0;
     char pol;
-    int ploe = 10;
+    int ploe = 10 - 10;
     return 0; 
 }

@@ -372,7 +372,7 @@ Parser::expression() // regras 19 a 25
 void
 Parser::term() // regras 26 a 29
 {
-	if (lToken->name == RELOP)
+	if (lToken->name == BINOP)
 	{
 		binOp();
 		expression();

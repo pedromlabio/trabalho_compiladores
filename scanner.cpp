@@ -224,24 +224,24 @@ Scanner::nextToken()
                 break;
 
             case 7:
-                tok = new Token(RELOP, ADD);
-
+                tok = new Token(BINOP, ADD);
+                return tok;
                 break;
 
             case 8:
-                tok = new Token(RELOP, SUB);
-
+                tok = new Token(BINOP, SUB);
+                return tok;
                 break;
 
             case 9:
-                tok = new Token(RELOP, MULT);
-
+                tok = new Token(BINOP, MULT);
+                return tok;
                 break;
 
             case 10:
                 
-                tok = new Token(RELOP, DIV);
-                
+                tok = new Token(BINOP, DIV);
+                return tok;
                 break;
                 
 
@@ -286,6 +286,19 @@ Scanner::nextToken()
 
                 return tok;
 
+            case 19:
+                if(input[pos] == '&'){
+                    pos++;
+                    tok = new Token(LOGOP, AND);
+                    return tok;
+                }
+
+            case 20:
+                if(input[pos] == '|'){
+                    pos++;
+                    tok = new Token(LOGOP, OR);
+                    return tok;
+                }
             case 21:
                 if(!isdigit(input[pos]))
                     state = 23;
