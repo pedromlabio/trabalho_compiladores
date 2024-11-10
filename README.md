@@ -10,3 +10,5 @@ g++ principal.cpp scanner.cpp parser.cpp -o teste
 ```
 ./teste saida.cmm
 ```
+
+Vale ressaltar que qualquer arquivo que não seja .cmm será identificado pelo compilador!
