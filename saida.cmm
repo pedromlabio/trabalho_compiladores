@@ -1,6 +1,6 @@
 /* Erros encontrados:
     "return" no meio da função.
-    somas ficam presas em algum while.*/
+*/
 /*void main(void){    
     char r = 'p';
     int n;
