@@ -1,10 +1,13 @@
 #include "scanner.h"
+#include "symboltable.h"
 
 class Parser
 {
 	private:
 		Scanner* scanner;
 		Token* lToken;
+		SymbolTable* globalST;
+		SymbolTable* currentST;
 
 		void advance();
 		void match(int);
@@ -25,5 +28,6 @@ class Parser
 		void binOp();
 		void relOp();
 		void logOp();
+		void initSymbolTable();
         void error(string);
 };

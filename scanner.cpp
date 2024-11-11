@@ -1,8 +1,9 @@
 #include "scanner.h"    
+#include "symboltable.h"
 
 //Construtor que recebe uma string com o nome do arquivo 
 //de entrada e preenche input com seu conteúdo.
-Scanner::Scanner(string input)
+Scanner::Scanner(string input, SymbolTable* globalST)
 {
     this->input = input;
     /*cout << "Entrada: " << input << endl << "Tamanho: " 

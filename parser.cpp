@@ -5,7 +5,10 @@ string func;
 
 Parser::Parser(string input)
 {
-	scanner = new Scanner(input);
+	currentST = globalST = new SymbolTable();
+	initSymbolTable();
+
+	scanner = new Scanner(input, globalST);
 }
 
 void
@@ -43,6 +46,33 @@ Parser::run()
 	else{
 		cout << "INCORRECT FILE TYPE" << endl;
 	}
+	/*TESTE DA TABELA DE SÍMBOLOS
+
+	currentST = new SymbolTable(currentST);
+	currentST = new SymbolTbale(currentST);
+	if(currentST -> add(new STEntry(new Token(ID), "batata")))
+		cout << "Adicção de batata deu certo" << endl;
+	else
+		cout << Adição de batata não deu certo" << endl;
+
+	STEntry** obj = currentST ->get("batata");
+
+	if(obj)
+		cout << "Encontrei o símbolo' << obj -> lexeme" << endl;
+	else
+		cout << "Não encontrei o símbolo buscado" << endl; 
+
+	///Fim do Escopo
+	currentST = currentST -> getParent();
+	
+	obj = currentST -> get("batata");
+
+	if(obj)
+		cout << "Encontrei o símbolo' << obj -> lexeme" << endl;
+	else
+		cout << "Não encontrei o símbolo buscado" << endl; 
+
+	*/
 }
 
 void
@@ -431,8 +461,21 @@ Parser::logOp() // regras 40 e 41
 	}else{
 		error("logOp invalido");
 	}
-	
+
 }
+
+void
+Parser::initSymbolTable()
+{
+	Token* t;
+
+	//t = new Token(WHILE, "while");
+	//globalST -> add(new STEntry(t, true));
+	//t = new Token(IF, "if");
+	//CONTINUAR
+	//PREENCHER COM AS PALAVRAS RESERVADAS DA LINGUAGEM
+}
+
 void
 Parser::error(string str)
 {

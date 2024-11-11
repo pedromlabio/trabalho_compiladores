@@ -5,12 +5,13 @@ class Scanner
 {
     private: 
         string input;//Armazena o texto de entrada
+        SymbolTable* globalST;
         int pos;//Posição atual
         int line;
     
     public:
     //Construtor
-        Scanner(string);
+        Scanner(string, SymbolTable*);
 
         int getLine();
     
