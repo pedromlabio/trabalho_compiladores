@@ -43,7 +43,17 @@ enum name
     WRONGFILE,//34
     END_OF_FILE,//35
     BINOP,//36
-    LOGOP//37
+    LOGOP,//37
+
+    //PALAVRAS RESERVADAS
+    WHILE,//38
+    IF,//39
+    FOR,//40
+    VOID,//41
+    INT,//42
+    CHAR,//43
+    ELSE,//44
+    RETURN,//45
 };
 
 class Token 

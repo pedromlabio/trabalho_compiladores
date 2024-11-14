@@ -51,7 +51,7 @@ Parser::run()
 	currentST = new SymbolTable(currentST);
 	currentST = new SymbolTbale(currentST);
 	if(currentST -> add(new STEntry(new Token(ID), "batata")))
-		cout << "Adicção de batata deu certo" << endl;
+		cout << "Adição de batata deu certo" << endl;
 	else
 		cout << Adição de batata não deu certo" << endl;
 
@@ -469,10 +469,28 @@ Parser::initSymbolTable()
 {
 	Token* t;
 
-	//t = new Token(WHILE, "while");
-	//globalST -> add(new STEntry(t, true));
-	//t = new Token(IF, "if");
-	//CONTINUAR
+	t = new Token(WHILE, "while");
+	globalST -> add(new STEntry(t, true));
+	t = new Token(IF, "if");
+	globalST -> add(new STEntry(t, true));
+	t = new Token(FOR, "for");
+	globalST -> add(new STEntry(t, true));
+	t = new Token(RETURN, "return");
+	globalST -> add(new STEntry(t, true));
+	t = new Token(ELSE, "else");
+	globalST -> add(new STEntry(t, true));
+	t = new Token(VOID, "void");
+	globalST -> add(new STEntry(t, true));
+	t = new Token(INT, "int");
+	globalST -> add(new STEntry(t, true));
+	t = new Token(CHAR, "char");
+	globalST -> add(new STEntry(t, true));
+	t = new Token(INTEGER_LITERAL, "integerconstant");
+	globalST -> add(new STEntry(t, true));
+	t = new Token(CHAR_CONSTANT, "charconstant");
+	globalST -> add(new STEntry(t, true));
+	t = new Token(STRING_CONSTANT, "stringconstant");
+	globalST -> add(new STEntry(t, true));
 	//PREENCHER COM AS PALAVRAS RESERVADAS DA LINGUAGEM
 }
 
