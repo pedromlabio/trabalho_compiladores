@@ -6,6 +6,7 @@
 Scanner::Scanner(string input, SymbolTable* globalST)
 {
     this->input = input;
+    this->globalST = globalST;
     /*cout << "Entrada: " << input << endl << "Tamanho: " 
          << input.length() << endl;
     */pos = 0;
