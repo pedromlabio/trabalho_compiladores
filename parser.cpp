@@ -97,15 +97,12 @@ Parser::function() // regras 2 e 3
 		match(RP);
 		match(LC);
 		
-		while (lToken->lexeme != "if"&&
-		lToken->lexeme != "while"&&
-		lToken->lexeme != "for"&&
-		lToken->lexeme != "return"&&
-		(lToken->lexeme == "char" || //essas duas linhas servem como first de assign pq é tudo id
-		lToken->lexeme == "int") &&
-		lToken->attribute != LC &&
-		lToken->attribute != SEMICOLON
-		)
+		while (lToken->attribute != RC){
+			if(
+		lToken->lexeme == "char" || //essas duas linhas servem como first de assign pq é tudo id
+		lToken->lexeme == "int"
+		
+			)
 		{
 			//cout <<lToken->lexeme << endl;
 			type();
@@ -132,10 +129,16 @@ Parser::function() // regras 2 e 3
 			}
 			
 		}
-		while (lToken->attribute != RC)
+		if (lToken->lexeme == "if"||
+		lToken->lexeme == "while"||
+		lToken->lexeme == "for"||
+		lToken->lexeme == "return"|| lToken->attribute == LC ||
+		lToken->attribute == SEMICOLON)
 		{
 			//cout << lToken->name << endl;
 			statement();
+			cout << lToken->lexeme << endl;
+		}
 		}
 		
 	match(RC);
@@ -311,7 +314,8 @@ void
 Parser::assign() // regra 16
 {
 	//cout << lToken->attribute << endl;
-	//match(ID);
+	if(lToken->name == ID)
+		match(ID);
 	assignL();
 }
 

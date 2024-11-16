@@ -11,7 +11,10 @@
 int por(void){    
     char r = 'p';
     int n;
-    //return 0;
+    return 0;
+    while(i==0){
+        n = 0;
+    }
     char pol;
     int ploe = 10 - 10;
     return 0; 
