@@ -1,5 +1,4 @@
 #include "scanner.h"    
-#include "symboltable.h"
 
 //Construtor que recebe uma string com o nome do arquivo 
 //de entrada e preenche input com seu conteúdo.

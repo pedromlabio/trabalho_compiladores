@@ -1,5 +1,5 @@
 #include "scanner.h"
-#include "symboltable.h"
+
 
 class Parser
 {

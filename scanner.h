@@ -1,5 +1,6 @@
 #include <fstream>
-#include "token.h"
+#include "symboltable.h"
+
 
 class Scanner 
 {
