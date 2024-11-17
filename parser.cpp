@@ -112,11 +112,13 @@ Parser::function() // regras 2 e 3
 			// adciona os nomes da variáveis à tabela de símbolos
 			globalST -> add(new STEntry(lToken, true));
 			STEntry* obj = currentST -> get(lToken->lexeme);
+			/*
 			if(obj)
 				cout << "Encontrei o símbolo " << obj->token->lexeme << endl;
 			else
 				cout << "Não encontrei o símbolo buscado" << endl;
-			varDeclaration();
+			*/
+		varDeclaration();
 			
 			while (lToken->attribute != SEMICOLON && lToken->attribute != ATRIB)
 			{
@@ -331,10 +333,12 @@ Parser::assign() // regra 16
 		
 		globalST -> add(new STEntry(lToken, true));
 		STEntry* obj = currentST -> get(lToken->lexeme);
+		/*
 		if(obj)
 			cout << "Encontrei o símbolo " << obj->token->lexeme << endl;
 		else
 			cout << "Não encontrei o símbolo buscado" << endl;
+		*/
 		match(ID);
 	}
 	assignL();
