@@ -78,8 +78,11 @@ Parser::run()
 void
 Parser::program() //regra 1
 {
-    while (lToken->name != END_OF_FILE)
-        function();
+    while (lToken->name != END_OF_FILE){
+		currentST = new SymbolTable(currentST);
+		function();
+		currentST = currentST -> getParent();
+	}
 
     match(END_OF_FILE);
 }
@@ -96,6 +99,7 @@ Parser::function() // regras 2 e 3
 		paramTypes();
 		match(RP);
 		match(LC);
+		currentST = new SymbolTable(currentST);
 		
 		while (lToken->attribute != RC){
 			if(
@@ -147,6 +151,7 @@ Parser::function() // regras 2 e 3
 		}
 		
 	match(RC);
+	currentST = currentST -> getParent();
 /*
 	}else{
 		type();
@@ -209,7 +214,7 @@ Parser::type() // regras 5 e 6
 	{
 		advance();
 	}else{
-		error("Tipo invalido");
+		error("Tipo invalido de variável em " + lToken -> lexeme);
 	}
 }
 
@@ -299,16 +304,19 @@ Parser::statement() // regras 9 a 15
 		match(SEMICOLON);
 	}else if (lToken->attribute == LC)
 	{
+		currentST = new SymbolTable(currentST);
 		advance();
 		while (lToken->attribute != RC)
 		{
 			statement();
 		}
 		match(RC);
+		currentST = currentST -> getParent();
+
 	}else if (lToken->attribute == SEMICOLON)
 	{
 		advance();
-	}else
+	}else 
 	{
 		assign();
 		match(SEMICOLON);
@@ -412,7 +420,7 @@ Parser::expression() // regras 19 a 25
 		term();
 	}else
 	{
-		error("expressão invalida");
+		error("Erro na compilação de expressão");
 	}
 }
 
@@ -448,7 +456,7 @@ Parser::binOp() // regras 30 a 33
 		advance();
 	}else
 	{
-		error("binOp invalido");
+		error("Operação do tipo binária invalida");
 	}
 }
 
@@ -464,7 +472,7 @@ Parser::relOp() // regras 34 a 39
 	{
 		advance();
 	}else{
-		error("relOp invalido");
+		error("Operação do tipo comparativa invalida");
 	}
 }
 
@@ -476,7 +484,7 @@ Parser::logOp() // regras 40 e 41
 	{
 		advance();
 	}else{
-		error("logOp invalido");
+		error("Operação do tipo lógica invalida");
 	}
 
 }
