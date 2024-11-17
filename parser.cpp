@@ -104,9 +104,14 @@ Parser::function() // regras 2 e 3
 		
 			)
 		{
-			//cout <<lToken->lexeme << endl;
 			type();
-			//cout <<lToken->lexeme << endl;
+			// adciona os nomes da variáveis à tabela de símbolos
+			globalST -> add(new STEntry(lToken, true));
+			STEntry* obj = currentST -> get(lToken->lexeme);
+			if(obj)
+				cout << "Encontrei o símbolo " << obj->token->lexeme << endl;
+			else
+				cout << "Não encontrei o símbolo buscado" << endl;
 			varDeclaration();
 			
 			while (lToken->attribute != SEMICOLON && lToken->attribute != ATRIB)
@@ -137,7 +142,7 @@ Parser::function() // regras 2 e 3
 		{
 			//cout << lToken->name << endl;
 			statement();
-			cout << lToken->lexeme << endl;
+			//cout << lToken->lexeme << endl;
 		}
 		}
 		
@@ -314,8 +319,16 @@ void
 Parser::assign() // regra 16
 {
 	//cout << lToken->attribute << endl;
-	if(lToken->name == ID)
+	if(lToken->name == ID){
+		
+		globalST -> add(new STEntry(lToken, true));
+		STEntry* obj = currentST -> get(lToken->lexeme);
+		if(obj)
+			cout << "Encontrei o símbolo " << obj->token->lexeme << endl;
+		else
+			cout << "Não encontrei o símbolo buscado" << endl;
 		match(ID);
+	}
 	assignL();
 }
 
