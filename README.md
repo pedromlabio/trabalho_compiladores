@@ -7,7 +7,7 @@ Membros do grupo:
 
 2- Marco Antônio de Rezende Zárate;
 
-3- Pedro Henrique Marques de Labio
+3- Pedro Henrique Marques de Labio.
 
 Como Utilizar o código no VSCode:
 
