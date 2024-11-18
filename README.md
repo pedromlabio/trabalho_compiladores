@@ -1,8 +1,12 @@
 # Trabalho de Compiladores 1
 Código em C++ com data de entrega para 17/11.
+
 Membros do grupo:
+
 1- Jailton Nunes Filho;
+
 2- Marco Antônio de Rezende Zárate;
+
 3- Pedro Henrique Marques de Labio
 
 Como Utilizar o código no VSCode:
